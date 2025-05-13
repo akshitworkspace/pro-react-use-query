@@ -1,2 +1,4 @@
-export { default as useProQuery } from './useProQuery';
+import useProQuery from './useProQuery';
+
+export default useProQuery;
 

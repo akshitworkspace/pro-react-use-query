@@ -4,6 +4,12 @@
     "description": "A simple React hook to manage URL search params (Next.js-friendly)",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        }
+    },
     "files": [
         "dist"
     ],
@@ -29,6 +35,9 @@
         "url": "https://github.com/akshitworkspace/pro-react-use-query/issues"
     },
     "homepage": "https://github.com/akshitworkspace/pro-react-use-query#readme",
+    "peerDependencies": {
+        "react": "^17.0.0 || ^18.0.0"
+    },
     "devDependencies": {
         "@types/react": "^19.1.4",
         "react": "^19.1.0",
