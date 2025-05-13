@@ -1,9 +1,9 @@
 {
     "name": "pro-react-use-query-hook",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "A simple React hook to manage URL search params (Next.js-friendly)",
-    "main": "dist/useQuery.js",
-    "types": "dist/useQuery.d.ts",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "files": [
         "dist"
     ],
@@ -29,10 +29,8 @@
         "url": "https://github.com/akshitworkspace/pro-react-use-query/issues"
     },
     "homepage": "https://github.com/akshitworkspace/pro-react-use-query#readme",
-    "peerDependencies": {
-        "react": "^18.3.1"
-    },
     "devDependencies": {
+        "@types/react": "^19.1.4",
         "react": "^19.1.0",
         "typescript": "^5.8.3"
     }
