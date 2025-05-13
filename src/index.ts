@@ -1,4 +1,1 @@
-import useProQuery from './useProQuery';
-
-export default useProQuery;
-
+export { default as useProQuery } from './useProQuery';

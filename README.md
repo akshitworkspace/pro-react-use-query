@@ -37,23 +37,13 @@ useEffect(() => {
 }, []);
 
 
-
-## Authors
-Made with ❤️ by Akshit Lakhanpal
-
-
-## License
-MIT – free for personal and commercial use.
-
-
-
 ## Usage/Examples
 
 ```javascript
 'use client'; // Required for Next.js App Router
 
 import { useEffect, useState } from 'react';
-import { useProQuery } from 'pro-react-use-query-hook';
+import useProQuery from 'pro-react-use-query-hook';
 
 export default function QueryParamsExample() {
   const { setParams, getParams, removeParams, removeAllParams } = useProQuery();
@@ -121,4 +111,9 @@ export default function QueryParamsExample() {
   );
 }
 ```
+## Authors
+Made with ❤️ by Akshit Lakhanpal
 
+
+## License
+MIT – free for personal and commercial use.
