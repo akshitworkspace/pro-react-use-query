@@ -38,7 +38,7 @@ useEffect(() => {
 
 ```typescript
 
-'use client';
+'use client';  // Required for Next.js App Router
 import React, { useState, useEffect } from 'react';
 import useProQuery from 'pro-react-use-query-hook';
 
