@@ -11,11 +11,10 @@ A lightweight custom React hook to easily manage URL search parameters — optim
 - ❌ `removeParams`: Remove a specific param
 - 🔄 `removeAllParams`: Clear all params at once
 - 🧠 SSR-safe (won't crash on server)
-- ⚛️ React 17/18/19 compatible
 
 ---
 
-## API Reference
+## 📖 API Reference
 
 | Method                 | Description                   | Example                      |
 | ---------------------- | ----------------------------- | ---------------------------- |
@@ -24,20 +23,19 @@ A lightweight custom React hook to easily manage URL search parameters — optim
 | `removeParams(name)`   | Removes a specific param      | `removeParams('foo')`        |
 | `removeAllParams()`    | Clears all search params      | `removeAllParams()`          |
 
-## Appendix
+## ⚠️ Beware
 
 getParams must be called inside a useEffect() or client-only logic, since it relies on window.location.
 
-````bash
+```bash
 useEffect(() => {
   const value = getParams('token'); // ✅ safe
 }, []);
+```
 
-
-## Usage/Examples
+## 📝 Usage/Example
 
 ```typescript
-
 'use client';  // Required for Next.js App Router
 import React, { useState, useEffect } from 'react';
 import useProQuery from 'pro-react-use-query-hook';
@@ -142,9 +140,9 @@ const btnStyle = {
     borderRadius: '4px',
     cursor: 'pointer'
 };
-````
+```
 
-## Authors
+## 🐼 Author
 
 Made with ❤️ by Akshit Lakhanpal
 
