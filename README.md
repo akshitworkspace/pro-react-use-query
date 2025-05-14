@@ -15,7 +15,6 @@ A lightweight custom React hook to easily manage URL search parameters — optim
 
 ---
 
-
 ## API Reference
 
 | Method                 | Description                   | Example                      |
@@ -25,13 +24,11 @@ A lightweight custom React hook to easily manage URL search parameters — optim
 | `removeParams(name)`   | Removes a specific param      | `removeParams('foo')`        |
 | `removeAllParams()`    | Clears all search params      | `removeAllParams()`          |
 
-
-
 ## Appendix
 
 getParams must be called inside a useEffect() or client-only logic, since it relies on window.location.
 
-```bash
+````bash
 useEffect(() => {
   const value = getParams('token'); // ✅ safe
 }, []);
@@ -39,81 +36,118 @@ useEffect(() => {
 
 ## Usage/Examples
 
-```javascript
-'use client'; // Required for Next.js App Router
+```typescript
 
-import { useEffect, useState } from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
 import useProQuery from 'pro-react-use-query-hook';
 
 export default function QueryParamsExample() {
-  const { setParams, getParams, removeParams, removeAllParams } = useProQuery();
-  const [paramValue, setParamValue] = useState('');
-  const [paramName, setParamName] = useState('');
+    // Extract query param manipulation methods from the hook
+    const { setParams, getParams, removeParams, removeAllParams } = useProQuery();
 
-  // Fetch a query param when the component mounts
-  useEffect(() => {
-    const fooValue = getParams('foo');
-    console.log('Fetched query param "foo":', fooValue); // This will log the value of "foo" from the URL if exists.
-  }, [getParams]);
+    // Local state for the param name, value, and the current query value shown
+    const [paramName, setParamName] = useState('');
+    const [paramValue, setParamValue] = useState('');
+    const [queryValue, setQueryValue] = useState('');
 
-  const handleSetParam = () => {
-    setParams(paramName, paramValue);
-    console.log(`Set param: ${paramName} = ${paramValue}`);
-  };
+    // On component mount, check if 'foo' is in the URL and prefill it
+    useEffect(() => {
+        const initial = getParams('foo');
+        if (initial) {
+            setParamName('foo');
+            setParamValue(initial);
+            setQueryValue(initial);
+        }
+    }, []);
 
-  const handleRemoveParam = () => {
-    removeParams(paramName);
-    console.log(`Removed param: ${paramName}`);
-  };
+    // Set a query parameter using the name and value from input
+    const handleSet = () => setParams(paramName, paramValue);
 
-  const handleClearAllParams = () => {
-    removeAllParams();
-    console.log('All params cleared');
-  };
+    // Get the current value of the specified query parameter
+    const handleGet = () => setQueryValue(getParams(paramName) || '');
 
-  return (
-    <div>
-      <h1>Manage Query Parameters</h1>
+    // Remove a specific query parameter and clear input fields
+    const handleRemove = () => {
+        removeParams(paramName);
+        setParamName('');
+        setParamValue('');
+        setQueryValue('');
+    };
 
-      <div>
-        <label>
-          Param Name:
-          <input
-            type="text"
-            value={paramName}
-            onChange={(e) => setParamName(e.target.value)}
-            placeholder="e.g., foo"
-          />
-        </label>
-      </div>
+    // Clear all query parameters from the URL
+    const handleClear = () => {
+        removeAllParams();
+        setParamName('');
+        setParamValue('');
+        setQueryValue('');
+    };
 
-      <div>
-        <label>
-          Param Value:
-          <input
-            type="text"
-            value={paramValue}
-            onChange={(e) => setParamValue(e.target.value)}
-            placeholder="e.g., bar"
-          />
-        </label>
-      </div>
+    return (
+        <div style={{
+            fontSize: "15px", maxWidth: '480px', margin: '40px auto', padding: '20px', border: '1px solid #ddd', borderRadius: '8px',
+            fontFamily: 'sans-serif', backgroundColor: "#000000", color: '#f5f5f5'
+        }}>
+            <h2 style={{ textAlign: 'center', marginBottom: "14px", fontWeight: "bold" }}>🔍 useProQuery Demo</h2>
 
-      <button onClick={handleSetParam}>Set Param</button>
-      <button onClick={handleRemoveParam}>Remove Param</button>
-      <button onClick={handleClearAllParams}>Clear All Params</button>
+            {/* Input fields for param name and value */}
+            <div style={{ marginBottom: '12px', display: "flex", gap: "4px", }}>
 
-      <div>
-        <h3>Current URL Query Parameters:</h3>
-        <pre>{window.location.search}</pre>
-      </div>
-    </div>
-  );
+                <input
+                    type="text"
+                    placeholder="Param name"
+                    value={paramName}
+                    onChange={(e) => setParamName(e.target.value)}
+                    style={{ padding: '6px', marginRight: '8px', width: '100%', flex: "1", border: '1px solid #ccc', borderRadius: '4px' }}
+                />
+                <input
+                    type="text"
+                    placeholder="Param value"
+                    value={paramValue}
+                    onChange={(e) => setParamValue(e.target.value)}
+                    style={{ padding: '6px', marginRight: '8px', width: '100%', flex: "1", border: '1px solid #ccc', borderRadius: '4px' }}
+                />
+            </div>
+
+            <div style={{ marginBottom: '12px', display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                {/* Set selected param */}
+                <button onClick={handleSet} style={btnStyle}>Set</button>
+
+                {/* Get selected param value */}
+                <button onClick={handleGet} style={btnStyle}>Get</button>
+
+                {/* Remove selected param */}
+                <button onClick={handleRemove} style={{ ...btnStyle, backgroundColor: '#e74c3c', marginLeft: "auto" }}>Remove</button>
+
+                {/* Clear all query parameters */}
+                <button onClick={handleClear} style={{ ...btnStyle, backgroundColor: '#555' }}>Clear All</button>
+            </div>
+
+            {/* Output the current value of the selected query param */}
+            <div>
+                <strong>Query Value:</strong>
+                <pre style={{ backgroundColor: '#f4f4f430', padding: '6px', borderRadius: '4px', marginTop: '4px' }}>
+                    {queryValue || '?'}
+                </pre>
+            </div>
+        </div>
+    );
 }
-```
+
+const btnStyle = {
+    padding: '6px 10px',
+    backgroundColor: '#2c3e50',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer'
+};
+````
+
 ## Authors
+
 Made with ❤️ by Akshit Lakhanpal
 
-
 ## License
+
 MIT – free for personal and commercial use.
