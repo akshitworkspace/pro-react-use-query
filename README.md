@@ -11,6 +11,7 @@ A lightweight custom React hook to easily manage URL search parameters — optim
 - ❌ `removeParams`: Remove a specific param
 - 🔄 `removeAllParams`: Clear all params at once
 - 🧠 SSR-safe (won't crash on server)
+- 🕘 Preserve History Support: Initiate with `useProQuery(true)` to retain browser history when updating query params
 
 ---
 
@@ -42,7 +43,7 @@ import useProQuery from 'pro-react-use-query-hook';
 
 export default function QueryParamsExample() {
     // Extract query param manipulation methods from the hook
-    const { setParams, getParams, removeParams, removeAllParams } = useProQuery();
+    const { setParams, getParams, removeParams, removeAllParams } = useProQuery(true);//Pass false if you don't want to preserve search params history
 
     // Local state for the param name, value, and the current query value shown
     const [paramName, setParamName] = useState('');
